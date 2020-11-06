@@ -160,5 +160,16 @@ object todas{
 	method criterio(algo) = vegetariano.criterio(algo) && dietetico.criterio(algo) && alternado.criterio(algo)
 }
 
+/* ASI LO HIZO BELEN Y NACHO
+
+ object combinado{
+	var property tipos = [alternado, dietetico, vegetariano]
+	
+	method aceptaComida(comida){
+		tipos.all({ preferencia => preferencia.aceptaComida(comida) })
+	}
+}
+ */
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
