@@ -17,10 +17,13 @@ class Persona{
 	}
 	
 	method pasarA(alguien,algo){
+		self.validarQueTengo(algo)
+		criterio.pasar(self,alguien,algo)
+	}
+	
+	method validarQueTengo(algo){
 		if(not self.tiene(algo)){
 			self.error("NO TENGO EL ELEMENTO")
-		}else{
-			criterio.pasar(self,alguien,algo)
 		}
 	}
 	
@@ -47,7 +50,6 @@ class Persona{
 		posicion = otro.posicion()
 	}
 	
-	
 	method eligeComer(algo){
 		if(criterioComida.criterio(algo)){
 			self.agregarComida(algo)	
@@ -66,7 +68,9 @@ class Persona{
 	
 	method comioAlgo() = not comi.isEmpty()
 	
-	method pasandolaBien() = self.comioAlgo()
+	method pasandolaBien() = self.comioAlgo() && self.criterioInd()
+	
+	method criterioInd()
 	
 	method comioCarne() = comi.any({unaComida => unaComida.esCarne()})
 	
@@ -79,20 +83,22 @@ class Persona{
 object osky inherits Persona{
 	
 	override method pasandolaBien() = true
+	override method criterioInd(){}
+	
 }
 
 object moni inherits Persona{
 	
-	override method pasandolaBien() = super() && (posicion == "1@1")
+	override method criterioInd() =  (posicion == "1@1")
 }
 
 object facu inherits Persona{
 	
-	override method pasandolaBien() = super() && self.comioCarne()
+	override method criterioInd() = self.comioCarne()
 }
 
 object vero inherits Persona{
-	override method pasandolaBien() = super() && self.maxElementosCerca(3)
+	override method criterioInd() = self.maxElementosCerca(3)
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
